@@ -21,22 +21,60 @@
             </div>
 
             <div class="col-lg-5 ml-auto" data-aos="fade-up" data-aos-delay="500">
-              <form action="" method="post" class="form-box">
+              <!-- Registration Form -->
+              <form action="/" method="POST" class="form-box">
+                {{ form.hidden_tag() }}
                 <h3 class="h4 text-black mb-4">Sign Up</h3>
                 <div class="form-group">
-                  <textarea class="form-control" cols="10" rows="5" placeholder="Your Address"></textarea>
+                  {% if form.address.errors %}
+                  {{ form.address(class="form-control is-invalid", cols="10", rows="5", placeholder=form.address.label.text) }}
+                  <div class="invalid-feedback">
+                    {% for error in form.address.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                  </div>
+                  {% else %}
+                  {{ form.address(class="form-control", cols="10", rows="5", placeholder=form.address.label.text) }}
+                  {% endif %}
                 </div>
                 <div class="form-group">
-                  <input type="text" class="form-control" placeholder="Email Addresss">
+                  {% if form.email.errors %}
+                  {{ form.email(class="form-control is-invalid", placeholder=form.email.label.text) }}
+                  <div class="invalid-feedback">
+                    {% for error in form.email.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                  </div>
+                  {% else %}
+                  {{ form.email(class="form-control", placeholder=form.email.label.text) }}
+                  {% endif %}
                 </div>
                 <div class="form-group">
-                  <input type="password" class="form-control" placeholder="Password">
+                  {% if form.password.errors %}
+                  {{ form.password(class="form-control is-invalid", placeholder=form.password.label.text) }}
+                  <div class="invalid-feedback">
+                    {% for error in form.password.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                  </div>
+                  {% else %}
+                  {{ form.password(class="form-control", placeholder=form.password.label.text) }}
+                  {% endif %}
                 </div>
                 <div class="form-group mb-4">
-                  <input type="password" class="form-control" placeholder="Re-type Password">
+                  {% if form.confirm_password.errors %}
+                  {{ form.confirm_password(class="form-control is-invalid", placeholder=form.confirm_password.label.text) }}
+                  <div class="invalid-feedback">
+                    {% for error in form.confirm_password.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                  </div>
+                  {% else %}
+                  {{ form.confirm_password(class="form-control", placeholder=form.confirm_password.label.text) }}
+                  {% endif %}
                 </div>
                 <div class="form-group">
-                  <input type="submit" class="btn btn-primary btn-pill" value="Sign up">
+                  {{ form.submit(class="btn btn-primary btn-pill") }}
                 </div>
               </form>
 
