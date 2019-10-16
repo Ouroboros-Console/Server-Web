@@ -2,5 +2,4 @@
 originals
 virtual_env
 server/__pycache__
-Python_Style_Guide.md
 test.db
