@@ -1,0 +1,5 @@
+.vscode
+originals
+virtual_env
+server/__pycache__
+test.db
