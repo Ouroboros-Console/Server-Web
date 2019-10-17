@@ -1,13 +1,17 @@
 from flask import Flask
 from flask_bcrypt import Bcrypt
 from flask_sqlalchemy import SQLAlchemy
+from flask_wtf.csrf import CSRFProtect
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "6fbf401890e90b47598f5wv5l290eb21"
 
-# Change URI to your specific database
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///../test.db"
+# Setting mysql
+app.config["SQLALCHEMY_DATABASE_URI"] = "mysql+pymysql://lucifer680:lucifer123@db4free.net/ouroboros"
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['SQLALCHEMY_ECHO'] = True
 
+csrf = CSRFProtect(app)
 db = SQLAlchemy(app)
 bcrypt = Bcrypt(app)
 

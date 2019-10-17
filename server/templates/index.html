@@ -24,6 +24,7 @@
               <!-- Registration Form -->
               <form action="/" method="POST" class="form-box">
                 {{ form.hidden_tag() }}
+                {{ form.csrf_token }}
                 <h3 class="h4 text-black mb-4">Sign Up</h3>
                 <div class="form-group">
                   {% if form.address.errors %}

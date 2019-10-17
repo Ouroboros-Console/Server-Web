@@ -1,18 +1,24 @@
-from flask import render_template, request, url_for, redirect, flash
-from server import app, db, bcrypt
-from server.models import User
+import os
+
+from flask import render_template, request, url_for, redirect, flash, Response
+from server import app, db, bcrypt, csrf
 from server.forms import RegistrationForm
+from server import models
 
 
 @app.route("/", methods=["GET", "POST"])
 def home():
+    csrf.init_app(app)
     form = RegistrationForm()
     if form.validate_on_submit():
         hashed_pw = bcrypt.generate_password_hash(form.password.data).decode("utf-8")
-
+        obj = models.Encrypt(os.urandom(32), os.urandom(16))
+        obj.set_cipher()
+        obj.set_message(b"hello world     ")
+        api_key = obj.set_encryptor()
         try:
-            user = User(
-                email=form.email.data, password=hashed_pw, address=form.address.data
+            user = models.User(
+                email=form.email.data, password=hashed_pw, address=form.address.data, api_key=api_key
             )
 
             db.session.add(user)
@@ -24,7 +30,7 @@ def home():
             flash("Some error occured", category="danger")
 
         finally:
-            return redirect(url_for("home"))
+            return redirect(url_for("test"))
 
     return render_template("index.html", footer_bg="white", form=form)
 
@@ -41,6 +47,11 @@ def course():
 #         return "Congratulations...You have been registered !"
 
 #     return render_template("index.html", footer_bg="white", form=form)
+
+# For any debugging purpose
+@app.route("/test")
+def test():
+    return Response(done)
 
 
 if __name__ == "__main__":
