@@ -1,7 +1,6 @@
 from flask import Flask
 from flask_bcrypt import Bcrypt
 from flask_sqlalchemy import SQLAlchemy
-from flask_wtf.csrf import CSRFProtect
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "6fbf401890e90b47598f5wv5l290eb21"
@@ -11,7 +10,6 @@ app.config["SQLALCHEMY_DATABASE_URI"] = "mysql+pymysql://lucifer680:lucifer123@d
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_ECHO'] = True
 
-csrf = CSRFProtect(app)
 db = SQLAlchemy(app)
 bcrypt = Bcrypt(app)
 

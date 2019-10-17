@@ -1,14 +1,13 @@
 import os
 
 from flask import render_template, request, url_for, redirect, flash, Response
-from server import app, db, bcrypt, csrf
+from server import app, db, bcrypt
 from server.forms import RegistrationForm
 from server import models
 
 
 @app.route("/", methods=["GET", "POST"])
 def home():
-    csrf.init_app(app)
     form = RegistrationForm()
     if form.validate_on_submit():
         hashed_pw = bcrypt.generate_password_hash(form.password.data).decode("utf-8")
@@ -51,7 +50,7 @@ def course():
 # For any debugging purpose
 @app.route("/test")
 def test():
-    return Response(done)
+    return Response('done')
 
 
 if __name__ == "__main__":
